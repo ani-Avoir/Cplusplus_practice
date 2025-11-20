@@ -9,7 +9,7 @@ class A {
     public:
     A() = default ;
     A( const A& obj );
-    A& operator=(const A& rhs) ;
+    A operator=(const A& rhs) ;
   //  A( double invalue , string instring ) ;
     double getdoublevalue() const;
     string getstringvalue() const ;
@@ -23,8 +23,11 @@ A::A( const A& obj ) {
          mstring = obj.mstring ;
          cout << "copy constructor" << '\t';
 }
-A& A::operator=( const A& rhs ) {
+A A::operator=( const A& rhs ) {
 
+        if( this == &rhs ) {
+                return *this ;
+        }
         mvalue = rhs.mvalue ;
         mstring = rhs.mstring ;
         cout << "Inside overloaded operator =" << '\t' ;

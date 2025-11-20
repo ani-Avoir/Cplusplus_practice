@@ -7,15 +7,22 @@ class Super {
        public:
        Super(int x) : i(x) {} 
        virtual void someMethod() ;
+       void some() { cout << "Inside some" << "\t" ;}
+       virtual void some(int i) { cout << "Inside some" << ' ' << i ;}
+
 };
 
 class Sub : public Super {
 
         int j ;
+        protected:
+        void someMethod() override ;
         public:
         Sub(int x) ;
-        void someMethod() override ;
+        
         void someOtherMethod();
+        using Super::some;
+        void some( int i) override { cout << ' ' << i ; }
 };
 
 void Super::someMethod() {
@@ -27,7 +34,7 @@ Sub::Sub( int i ) : Super(i) {}
 
 void Sub::someMethod() {
 
-    Super::someMethod();
+    cout << "Inside Sub some method" ;
 }
 
 void Sub::someOtherMethod() {
@@ -41,9 +48,12 @@ int main() {
       //  Super *super = new Sub(2) ;
       //  super->someMethod();
         
-          sub.someMethod();
+        //  sub.someMethod();
       //  Super supper = sub ;
       //  supper.someMethod();
-
+     
+     // sub.Super::some();
+     Super* ref = &sub ;
+     ref->someMethod();
 
 }
